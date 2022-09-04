@@ -8,7 +8,7 @@ class Node {
 
 export class Tree {
   constructor(array) {
-    this.root = null;
+    this.root = this.buildTree(array);
   }
 
   // helper function to sort array
@@ -30,11 +30,35 @@ export class Tree {
     });
   }
 
+  prettyPrint(node, prefix = '', isLeft = true) {
+    if (node.right !== null) {
+      this.prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
+    }
+    console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
+    if (node.left !== null) {
+      this.prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
+    }
+  }
+
   buildTree(array) {
     // clean array
     let sortedArray = this.sortArray(array);
     sortedArray = this.removeDuplicates(sortedArray);
 
-    
+    let length = sortedArray.length - 1;
+    return this.arrayToBST(sortedArray, 0, length);
+  }
+
+  arrayToBST(arr, start, end) {
+    if (start > end) {
+      return null;
+    }
+
+    let mid = parseInt((start + end) / 2);
+    let node = new Node(arr[mid]);
+
+    node.left = this.arrayToBST(arr, start, mid - 1);
+    node.right = this.arrayToBST(arr, mid + 1, end);
+    return node;
   }
 }

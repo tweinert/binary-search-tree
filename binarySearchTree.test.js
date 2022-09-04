@@ -1,9 +1,10 @@
 import { Tree } from "./binarySearchTree";
 
-const testTree = new Tree();
+const testTree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 
 describe("Binary Search Tree", () => {
   it("buildTree", () => {
-    testTree.buildTree([4, 2, 8, 2, 8, 3, 1]);
+    console.log(testTree.root);
+    testTree.prettyPrint(testTree.root);
   });
 });
