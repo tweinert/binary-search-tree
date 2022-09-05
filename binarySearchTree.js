@@ -61,4 +61,23 @@ export class Tree {
     node.right = this.arrayToBST(arr, mid + 1, end);
     return node;
   }
+
+  insert(key) {
+    this.root = this.insertRec(this.root, key);
+  }
+
+  insertRec(root, key) {
+    // base case
+    if (root == null) {
+      root = new Node(key);
+      return root;
+    }
+
+    if (key < root.data)
+      root.left = this.insertRec(root.left, key);
+    else if (key > root.data)
+      root.right = this.insertRec(root.right, key);
+    
+    return root;
+  }
 }
