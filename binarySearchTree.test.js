@@ -8,4 +8,9 @@ describe("Binary Search Tree", () => {
     testTree.insert(10);
     testTree.prettyPrint(testTree.root);
   });
+
+  it("delete()", () => {
+    testTree.delete(9);
+    testTree.prettyPrint(testTree.root);
+  });
 });

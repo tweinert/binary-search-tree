@@ -62,22 +62,68 @@ export class Tree {
     return node;
   }
 
-  insert(key) {
-    this.root = this.insertRec(this.root, key);
+  // inserts a node with given value
+  insert(data) {
+    this.root = this.insertRec(this.root, data);
   }
 
-  insertRec(root, key) {
+  insertRec(root, data) {
     // base case
     if (root == null) {
-      root = new Node(key);
+      root = new Node(data);
       return root;
     }
 
-    if (key < root.data)
-      root.left = this.insertRec(root.left, key);
-    else if (key > root.data)
-      root.right = this.insertRec(root.right, key);
+    if (data < root.data)
+      root.left = this.insertRec(root.left, data);
+    else if (data > root.data)
+      root.right = this.insertRec(root.right, data);
     
     return root;
+  }
+
+  // delete node with given value
+  delete(data) {
+    this.root = this.deleteRec(this.root, data);
+  }
+
+  deleteRec(root, data) {
+    // base case
+    if (root == null) {
+      return root;
+    }
+
+    if (data < root.data)
+      root.left = this.deleteRec(root.left, data);
+    else if (data > root.data)
+      root.right = this.deleteRec(root.right, data);
+    
+    // if data is same as root's data,
+    // delete this node
+    else {
+      // node with only one child or no child
+      if (root.left == null)
+        return root.right;
+      else if (root.right == null)
+        return root.left;
+
+        // node wtih two children:
+        // get the inorder successor (smallest in right subtree)
+        root.data = minValue(root.right);
+
+        // delete the inorder successor
+        root.right = deleteRec(root.right, root.data);
+    }
+
+    return root;
+  }
+
+  minValue(root) {
+    let minV = root.data;
+    while (root.left != null) {
+      minV = root.left.key;
+      root = root.left;
+    }
+    return minV;
   }
 }
