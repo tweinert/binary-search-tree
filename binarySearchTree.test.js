@@ -1,4 +1,4 @@
-import { Tree } from "./binarySearchTree";
+import { Node, Tree } from "./binarySearchTree";
 
 const testTree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 testTree.prettyPrint(testTree.root);
@@ -12,5 +12,13 @@ describe("Binary Search Tree", () => {
   it("delete()", () => {
     testTree.delete(9);
     testTree.prettyPrint(testTree.root);
+  });
+
+  it("find()", () => {
+    console.log(testTree.find(testTree.root, 8));
+  });
+
+  it("find(), null", () => {
+    expect(testTree.find(testTree.root, 24)).toBe(null);
   });
 });

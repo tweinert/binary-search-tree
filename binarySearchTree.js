@@ -1,4 +1,4 @@
-class Node {
+export class Node {
   constructor(data) {
     this.data = data;
     this.left = null;
@@ -118,6 +118,7 @@ export class Tree {
     return root;
   }
 
+  // returns the inorder successor
   minValue(root) {
     let minV = root.data;
     while (root.left != null) {
@@ -125,5 +126,21 @@ export class Tree {
       root = root.left;
     }
     return minV;
+  }
+
+  find(root, value) {
+    // base case
+    if (root == null || root.value == value) {
+      return root;
+    }
+    
+    if (root.value < value) {
+      return this.find(root.right, value);
+    } else {
+      // if value is smaller than root's value
+      return this.find(root.left, value);
+    }
+    
+
   }
 }
