@@ -128,19 +128,17 @@ export class Tree {
     return minV;
   }
 
-  find(root, value) {
+  find(data, root = this.root) {
     // base case
-    if (root == null || root.value == value) {
-      return root;
-    }
-    
-    if (root.value < value) {
-      return this.find(root.right, value);
-    } else {
-      // if value is smaller than root's value
-      return this.find(root.left, value);
-    }
-    
+    if (root == null) return null;
 
+    if (root.data == data) return root;
+    
+    if (root.data < data) {
+      return this.find(data, root.right);
+    } else if (root.data > data) {
+      // if value is smaller than root's value
+      return this.find(data, root.left);
+    }
   }
 }
