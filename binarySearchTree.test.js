@@ -24,6 +24,13 @@ describe("Binary Search Tree", () => {
   });
 
   it("levelOrder()", () => {
-    testTree.levelOrder();
-  })
+    expect(testTree.levelOrder()).toEqual([8, 4, 67, 1, 5, 23, 324, 3, 7, 10, 6345]);
+  });
+
+  it("levelOrder(), func arg", () => {
+    const printData = function(node) {
+      console.log(node.data);
+    };
+    console.log(testTree.levelOrder(printData));
+  });
 });

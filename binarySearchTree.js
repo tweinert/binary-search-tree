@@ -149,14 +149,24 @@ export class Tree {
     // use array acting as queue to keep track of child nodes yet to traverse
     if (root == null) return;
     const queue = [];
+    let outputArr = [];
     queue.push(root);
 
     while(queue.length > 0) {
       let current = queue[0];
       queue.shift();
-      console.log(current.data);
+      // if func, node as argument to func
+      // if no func, return array of values
+      if (func == null) {
+        outputArr.push(current.data);
+      } else {
+        func(current);
+      }
+
       if (current.left != null) queue.push(current.left);
       if (current.right != null) queue.push(current.right);
     }
+
+    if (outputArr.length > 0) return outputArr;
   }
 }
