@@ -141,4 +141,22 @@ export class Tree {
       return this.find(data, root.left);
     }
   }
+
+  levelOrder(func = null, root = this.root) {
+    // traverse tree in breadth-first level order
+    // each node as argument to provided function
+    // return array of values if no function given
+    // use array acting as queue to keep track of child nodes yet to traverse
+    if (root == null) return;
+    const queue = [];
+    queue.push(root);
+
+    while(queue.length > 0) {
+      let current = queue[0];
+      queue.shift();
+      console.log(current.data);
+      if (current.left != null) queue.push(current.left);
+      if (current.right != null) queue.push(current.right);
+    }
+  }
 }

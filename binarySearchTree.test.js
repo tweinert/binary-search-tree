@@ -22,4 +22,8 @@ describe("Binary Search Tree", () => {
   it("find(), null", () => {
     expect(testTree.find(24)).toBe(null);
   });
+
+  it("levelOrder()", () => {
+    testTree.levelOrder();
+  })
 });
