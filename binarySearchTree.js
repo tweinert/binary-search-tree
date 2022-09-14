@@ -204,11 +204,63 @@ export class Tree {
     return arr;
   }
 
-  preorder(func = null, root = this.root) {
+  preorder(func = null, node = this.root) {
     // root, left, right
+    if (node == null)
+      return;
+
+    let outputArr = [];
+
+    outputArr = this.preorderRec(func, node, outputArr);
+
+    if (outputArr.length > 0)
+      return outputArr;
   }
 
-  postorder(func = null, root = this.root) {
+  preorderRec(func, node, arr) {
+    if (node == null)
+      return;
+    
+    if (func == null) {
+      arr.push(node.data);
+    } else {
+      func(node);
+    }
+
+    this.preorderRec(func, node.left, arr);
+
+    this.preorderRec(func, node.right, arr);
+
+    return arr;
+  }
+
+  postorder(func = null, node = this.root) {
     // left, right, root
+    if (node == null) 
+      return;
+    
+    let outputArr = [];
+
+    outputArr = this.postorderRec(func, node, outputArr);
+
+    if (outputArr.length > 0) 
+      return outputArr;
+  }
+
+  postorderRec(func, node, arr) {
+    if (node == null)
+      return;
+
+    this.postorderRec(func, node.left, arr);
+
+    this.postorderRec(func, node.right, arr);
+
+    if (func == null) {
+      arr.push(node.data);
+    } else {
+      func(node);
+    }
+
+    return arr;
   }
 }
