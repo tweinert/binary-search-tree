@@ -147,7 +147,8 @@ export class Tree {
     // each node as argument to provided function
     // return array of values if no function given
     // use array acting as queue to keep track of child nodes yet to traverse
-    if (root == null) return;
+    if (root == null)
+      return;
     const queue = [];
     let outputArr = [];
     queue.push(root);
@@ -167,6 +168,47 @@ export class Tree {
       if (current.right != null) queue.push(current.right);
     }
 
-    if (outputArr.length > 0) return outputArr;
+    if (outputArr.length > 0)
+      return outputArr;
+  }
+
+  inorder(func = null, node = this.root) {
+    // left, root, right
+    if (node == null)
+      return;
+    
+    let outputArr = [];
+    
+    outputArr = this.inorderRec(func, node, outputArr);
+
+    if (outputArr.length > 0)
+      return outputArr;
+  }
+
+  inorderRec(func, node, arr) {
+    if (node == null) 
+      return;
+    
+    // left
+    this.inorderRec(func, node.left, arr);
+
+    // function or add to outputArr
+    if (func == null) {
+      arr.push(node.data);
+    } else {
+      func(node);
+    }
+
+    this.inorderRec(func, node.right, arr);
+
+    return arr;
+  }
+
+  preorder(func = null, root = this.root) {
+    // root, left, right
+  }
+
+  postorder(func = null, root = this.root) {
+    // left, right, root
   }
 }
