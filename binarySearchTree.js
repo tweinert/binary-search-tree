@@ -263,4 +263,17 @@ export class Tree {
 
     return arr;
   }
+
+  height(node) {
+    // go down from node and find how far deepest node is from it
+
+    if (node == null) {
+      return -1;
+    }
+
+    let left = this.height(node.left);
+    let right = this.height(node.right);
+
+    return Math.max(left, right) + 1;
+  }
 }
