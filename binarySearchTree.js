@@ -13,30 +13,31 @@ export class Tree {
 
   // helper function to sort array
   sortArray(array) {
-    return array.sort(function(a, b) {
-      if(a === Infinity)
-        return 1;
-      else if(isNaN(a))
-        return -1;
-      else
-        return a - b;
+    return array.sort(function (a, b) {
+      if (a === Infinity) return 1;
+      else if (isNaN(a)) return -1;
+      else return a - b;
     });
   }
 
   // helper function to remove duplicates from a sorted array
   removeDuplicates(array) {
-    return array.filter(function(item, pos, ary) {
+    return array.filter(function (item, pos, ary) {
       return !pos || item != ary[pos - 1];
     });
   }
 
-  prettyPrint(node, prefix = '', isLeft = true) {
+  prettyPrint(node, prefix = "", isLeft = true) {
     if (node.right !== null) {
-      this.prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
+      this.prettyPrint(
+        node.right,
+        `${prefix}${isLeft ? "│   " : "    "}`,
+        false
+      );
     }
-    console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
+    console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
     if (node.left !== null) {
-      this.prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
+      this.prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
     }
   }
 
@@ -74,11 +75,9 @@ export class Tree {
       return root;
     }
 
-    if (data < root.data)
-      root.left = this.insertRec(root.left, data);
-    else if (data > root.data)
-      root.right = this.insertRec(root.right, data);
-    
+    if (data < root.data) root.left = this.insertRec(root.left, data);
+    else if (data > root.data) root.right = this.insertRec(root.right, data);
+
     return root;
   }
 
@@ -93,26 +92,21 @@ export class Tree {
       return root;
     }
 
-    if (data < root.data)
-      root.left = this.deleteRec(root.left, data);
-    else if (data > root.data)
-      root.right = this.deleteRec(root.right, data);
-    
+    if (data < root.data) root.left = this.deleteRec(root.left, data);
+    else if (data > root.data) root.right = this.deleteRec(root.right, data);
     // if data is same as root's data,
     // delete this node
     else {
       // node with only one child or no child
-      if (root.left == null)
-        return root.right;
-      else if (root.right == null)
-        return root.left;
+      if (root.left == null) return root.right;
+      else if (root.right == null) return root.left;
 
-        // node wtih two children:
-        // get the inorder successor (smallest in right subtree)
-        root.data = minValue(root.right);
+      // node wtih two children:
+      // get the inorder successor (smallest in right subtree)
+      root.data = minValue(root.right);
 
-        // delete the inorder successor
-        root.right = deleteRec(root.right, root.data);
+      // delete the inorder successor
+      root.right = deleteRec(root.right, root.data);
     }
 
     return root;
@@ -133,7 +127,7 @@ export class Tree {
     if (root == null) return null;
 
     if (root.data == data) return root;
-    
+
     if (root.data < data) {
       return this.find(data, root.right);
     } else if (root.data > data) {
@@ -147,13 +141,12 @@ export class Tree {
     // each node as argument to provided function
     // return array of values if no function given
     // use array acting as queue to keep track of child nodes yet to traverse
-    if (root == null)
-      return;
+    if (root == null) return;
     const queue = [];
     let outputArr = [];
     queue.push(root);
 
-    while(queue.length > 0) {
+    while (queue.length > 0) {
       let current = queue[0];
       queue.shift();
       // if func, node as argument to func
@@ -168,27 +161,23 @@ export class Tree {
       if (current.right != null) queue.push(current.right);
     }
 
-    if (outputArr.length > 0)
-      return outputArr;
+    if (outputArr.length > 0) return outputArr;
   }
 
   inorder(func = null, node = this.root) {
     // left, root, right
-    if (node == null)
-      return;
-    
+    if (node == null) return;
+
     let outputArr = [];
-    
+
     outputArr = this.inorderRec(func, node, outputArr);
 
-    if (outputArr.length > 0)
-      return outputArr;
+    if (outputArr.length > 0) return outputArr;
   }
 
   inorderRec(func, node, arr) {
-    if (node == null) 
-      return;
-    
+    if (node == null) return;
+
     // left
     this.inorderRec(func, node.left, arr);
 
@@ -206,21 +195,18 @@ export class Tree {
 
   preorder(func = null, node = this.root) {
     // root, left, right
-    if (node == null)
-      return;
+    if (node == null) return;
 
     let outputArr = [];
 
     outputArr = this.preorderRec(func, node, outputArr);
 
-    if (outputArr.length > 0)
-      return outputArr;
+    if (outputArr.length > 0) return outputArr;
   }
 
   preorderRec(func, node, arr) {
-    if (node == null)
-      return;
-    
+    if (node == null) return;
+
     if (func == null) {
       arr.push(node.data);
     } else {
@@ -236,20 +222,17 @@ export class Tree {
 
   postorder(func = null, node = this.root) {
     // left, right, root
-    if (node == null) 
-      return;
-    
+    if (node == null) return;
+
     let outputArr = [];
 
     outputArr = this.postorderRec(func, node, outputArr);
 
-    if (outputArr.length > 0) 
-      return outputArr;
+    if (outputArr.length > 0) return outputArr;
   }
 
   postorderRec(func, node, arr) {
-    if (node == null)
-      return;
+    if (node == null) return;
 
     this.postorderRec(func, node.left, arr);
 
@@ -275,5 +258,48 @@ export class Tree {
     let right = this.height(node.right);
 
     return Math.max(left, right) + 1;
+  }
+
+  depth(node, root = this.root) {
+    if (root == null) return null;
+
+    let depth = -1;
+
+    if (
+      root.data == node.data ||
+      (depth = findDepth(root.left, node)) >= 0 ||
+      (depth = findDepth(root.right, node)) >= 0
+    ) {
+      return depth + 1;
+    }
+    return depth;
+  }
+
+  isBalanced(root = this.root) {
+    if (root == null) return true;
+
+    let lh = this.height(root.left);
+    let rh = this.height(root.right);
+
+    if (
+      Math.abs(lh - rh) <= 1 &&
+      this.isBalanced(root.left) == true &&
+      this.isBalanced(root.right) == true
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+
+  rebalance() {
+    // get array of current tree
+    // pass array to buildTree
+    if (this.isBalanced(this.root)) return this.root;
+
+    let rebalancedNewTreeArray = [];
+    rebalancedNewTreeArray = this.inorder();
+
+    this.root = this.buildTree(rebalancedNewTreeArray);
   }
 }
